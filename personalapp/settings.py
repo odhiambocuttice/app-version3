@@ -103,7 +103,7 @@ DATABASES = {
         "NAME": "hello",
         "USER": "personalapp",
         "PASSWORD": "hello",
-        # "HOST": "db",
+        "HOST": "db",
         "PORT": "5432",
     }
 }
