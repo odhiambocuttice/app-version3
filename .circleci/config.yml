@@ -22,16 +22,6 @@ jobs:
     # builds occur in a docker container
     docker:
       - image: circleci/python:3.7
-    #     environment: # environment variables for primary container
-    #       DATABASE_URL: postgresql://root@localhost/hello?sslmode=disable
-    #   # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
-    #   - image: circleci/postgres:9.6.2
-    #     environment: # environment variables for the Postgres container.
-    #       POSTGRES_USER: personalapp
-    #       POSTGRES_DB: hello
-    # working_directory: ~/byob-profiles-rest-api
-
-    # series/ list of steps done for the build
     steps:
       # Step 1: obtain repo from GitHub
       - checkout
@@ -53,20 +43,19 @@ jobs:
       - run:
           name: verify git tag vs. version
           command: |
-            python3 -m venv dockerproject
             . dockerproject/bin/activate
             python setup.py verify
-        - run:
+      - run:
           name: init .pypirc
           command: |
             echo -e "[pypi]" >> ~/.pypirc
             echo -e "username = odhiambocuttice" >> ~/.pypirc
             echo -e "password = $PYPI_PASSWORD" >> ~/.pypirc
-        - run:
+       - run:
           name: create packages
           command: |
             make package
-        - run:
+      - run:
           name: upload to pypi
           command: |
             . dockerproject/bin/activate
