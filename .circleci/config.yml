@@ -6,22 +6,7 @@ workflows:
           filters:
             tags:
               only: /.*/
-      - test-python-install:
-          version: "3.4"
-          requires:
-            - build
-      - test-python-install:
-          version: "3.5"
-          requires:
-            - build
-      - test-python-install:
-          version: "3.6"
-          requires:
-            - build
-      - test-python-install:
-          version: "3.7"
-          requires:
-            - build
+      
      
 jobs:
   build:
@@ -47,15 +32,7 @@ jobs:
            coverage report
       - store_artifacts:
           path: htmlcov/
-  test-python-install:
-    parameters:
-      version:
-        type: string
-        default: latest
-    docker:
-      - image: circleci/python:<< parameters.version >>
-    steps:
-      - checkout
+ 
       
       - run:
           name: install python dependencies
@@ -88,4 +65,4 @@ jobs:
           name: upload to pypi
           command: |
             . dockerproject/bin/activate
-            python3 -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+            twine upload dist/*
