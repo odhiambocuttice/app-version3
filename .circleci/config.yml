@@ -36,8 +36,7 @@ jobs:
       - image: circleci/python:3.6
     steps:
       - checkout
-      - restore_cache:
-          key: v1-dependency-cache-{{ checksum "setup.py" }}-{{ checksum "Makefile" }}
+      
       - run:
           name: install python dependencies
           command: |
@@ -46,10 +45,7 @@ jobs:
            . dockerproject/bin/activate
            pip3 install -r requirements.txt
             
-      - save_cache:
-          key: v1-dependency-cache-{{ checksum "setup.py" }}-{{ checksum "Makefile" }}
-          paths:
-            - "venv"
+    
       - run:
           name: run tests
           command: |
@@ -67,8 +63,7 @@ jobs:
       - image: circleci/python:<< parameters.version >>
     steps:
       - checkout
-      - restore_cache:
-          key: v1-dependency-cache-{{ checksum "setup.py" }}-{{ checksum "Makefile" }}
+      
       - run:
           name: install python dependencies
           command: |
@@ -76,10 +71,7 @@ jobs:
             python3 -m venv dockerproject
             . dockerproject/bin/activate
             pip3 install -r requirements.txt
-      - save_cache:
-          key: v1-dependency-cache-{{ checksum "setup.py" }}-{{ checksum "Makefile" }}
-          paths:
-            - "venv"
+      
       - run:
           name: run tests
           command: |
@@ -104,8 +96,7 @@ jobs:
       - image: circleci/python:3.6
     steps:
       - checkout
-      - restore_cache:
-          key: v1-dependency-cache-{{ checksum "setup.py" }}-{{ checksum "Makefile" }}
+      
       - run:
           name: install python dependencies
           command: |
@@ -113,10 +104,6 @@ jobs:
            python3 -m venv dockerproject
            . dockerproject/bin/activate
            pip3 install -r requirements.txt
-      - save_cache:
-          key: v1-dependency-cache-{{ checksum "setup.py" }}-{{ checksum "Makefile" }}
-          paths:
-            - "venv"
       - run:
           name: verify git tag vs. version
           command: |
@@ -127,7 +114,7 @@ jobs:
           name: init .pypirc
           command: |
             echo -e "[pypi]" >> ~/.pypirc
-            echo -e "username = levlaz" >> ~/.pypirc
+            echo -e "username = odhiambocuttice" >> ~/.pypirc
             echo -e "password = $PYPI_PASSWORD" >> ~/.pypirc
       - run:
           name: create packages
@@ -136,5 +123,5 @@ jobs:
       - run:
           name: upload to pypi
           command: |
-            . venv/bin/activate
+            . dockerproject/bin/activate
             twine upload dist/*
