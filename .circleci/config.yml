@@ -81,6 +81,19 @@ jobs:
      
       
   
+  deploy:
+    docker:
+      - image: circleci/python:3.6
+    steps:
+      - checkout
+      
+      
+      - run:
+          name: verify git tag vs. version
+          command: |
+            python3 -m venv dockerproject
+            . dockerproject/bin/activate
+            python setup.py verify
       - run:
           name: init .pypirc
           command: |
