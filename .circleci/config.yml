@@ -66,3 +66,15 @@ jobs:
           command: |
             . dockerproject/bin/activate
             twine upload dist/*
+  
+  deploy:
+    
+    steps:
+      - run:
+          name: Install awscli
+          command: sudo pip install awscli
+      # - run:
+      #     name: Deploy to S3
+      #     command: |
+      #       . dockerproject/bin/activate
+      #       aws s3 sync dockerproject s3://circle-production-static-site/docs/ --delete
