@@ -78,22 +78,7 @@ jobs:
            . dockerproject/bin/activate
            coverage run --source='.' manage.py test
            coverage report
-       - run:
-          name: init .pypirc
-          command: |
-            echo -e "[pypi]" >> ~/.pypirc
-            echo -e "username = odhiambocuttice" >> ~/.pypirc
-            echo -e "password = $PYPI_PASSWORD" >> ~/.pypirc
-      - run:
-          name: create packages
-          command: |
-            python setup.py sdist
-      - run:
-          name: upload to pypi
-          command: |
-            . dockerproject/bin/activate
-            twine upload dist/*
-
+      
       
   integration:
     docker:
@@ -120,4 +105,18 @@ jobs:
             python3 -m venv dockerproject
             . dockerproject/bin/activate
             python setup.py verify
-      
+      - run:
+          name: init .pypirc
+          command: |
+            echo -e "[pypi]" >> ~/.pypirc
+            echo -e "username = odhiambocuttice" >> ~/.pypirc
+            echo -e "password = $PYPI_PASSWORD" >> ~/.pypirc
+      - run:
+          name: create packages
+          command: |
+            python setup.py sdist
+      - run:
+          name: upload to pypi
+          command: |
+            . dockerproject/bin/activate
+            twine upload dist/*
