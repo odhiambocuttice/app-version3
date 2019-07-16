@@ -24,7 +24,7 @@ jobs:
       - image: circleci/python:3.7
     steps:
       # Step 1: obtain repo from GitHub
-      - checkout
+      -checkout
       # Step 2: create virtual env and install dependencies
       - run:
           name: install dependencies
@@ -51,7 +51,7 @@ jobs:
             echo -e "[pypi]" >> ~/.pypirc
             echo -e "username = odhiambocuttice" >> ~/.pypirc
             echo -e "password = $PYPI_PASSWORD" >> ~/.pypirc
-       - run:
+      - run:
           name: create packages
           command: |
             make package
