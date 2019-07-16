@@ -18,7 +18,6 @@ from django.urls import path
 from django.urls import include
 
 from hello.views import hello_world, contact_views, project_views, project_create_view
-from search import views as search_views
 def trigger_error(request):
     division_by_zero = 1 / 0
 
@@ -29,6 +28,5 @@ urlpatterns = [
     path("project/", project_views, name="project"),
     path("create/", project_create_view, name="create"),
     path('', include('django_prometheus.urls')),
-    path('search/', search_views.search, name='search'),  
     path('sentry-debug/', trigger_error),
 ] 
