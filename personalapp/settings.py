@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-import os
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
@@ -51,7 +50,6 @@ INSTALLED_APPS = [
     "hello",
     "django_prometheus",
     "django_elasticsearch_dsl",
-    "search",
 
 ]
 
