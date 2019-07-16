@@ -27,5 +27,5 @@ jobs:
           name: run tests
           command: |
             . dockerproject/bin/activate
-            python3 django/manage.py test
-            coverage run --source='.' django/manage.py test
+            python3 manage.py test
+            coverage run --source='.' manage.py test
