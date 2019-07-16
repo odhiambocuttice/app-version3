@@ -80,25 +80,7 @@ jobs:
            coverage report
      
       
-  integration:
-    docker:
-      - image: circleci/python:3.6
-    steps:
-      - run: echo "It works!"
-      - run: echo $RUN_EXTRA_TESTS
-  deploy:
-    docker:
-      - image: circleci/python:3.6
-    steps:
-      - checkout
-      
-      - run:
-          name: install python dependencies
-          command: |
-           pip install --upgrade pip
-           python3 -m venv dockerproject
-           . dockerproject/bin/activate
-           pip3 install -r requirements.txt
+
       - run:
           name: verify git tag vs. version
           command: |
