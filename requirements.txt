@@ -35,4 +35,5 @@ elasticsearch-dsl==6.1.0
 base==1.0.4 
 django-elasticsearch-dsl==0.5.1 
 sentry-sdk==0.10.1
+twine==1.13.0 
 
