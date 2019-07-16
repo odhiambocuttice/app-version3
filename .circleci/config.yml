@@ -26,6 +26,6 @@ jobs:
       - run:
           name: run tests
           command: |
-            . venv/bin/activate
+            . dockerproject/bin/activate
             python3 manage.py test
             coverage run --source='.' manage.py test
