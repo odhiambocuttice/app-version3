@@ -78,13 +78,8 @@ jobs:
            . dockerproject/bin/activate
            coverage run --source='.' manage.py test
            coverage report
-      - store_artifacts:
-          path: htmlcov/
-      - run:
-          name: Smoke Test Install 
-          command: |
-            python --version
-            sudo pip3 install circleci
+     
+      
   integration:
     docker:
       - image: circleci/python:3.6
