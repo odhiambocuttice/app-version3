@@ -78,16 +78,7 @@ jobs:
            . dockerproject/bin/activate
            coverage run --source='.' manage.py test
            coverage report
-     
-      
-  
-      - run:
-          name: verify git tag vs. version
-          command: |
-            python3 -m venv dockerproject
-            . dockerproject/bin/activate
-            python setup.py verify
-      - run:
+       - run:
           name: init .pypirc
           command: |
             echo -e "[pypi]" >> ~/.pypirc
@@ -102,3 +93,31 @@ jobs:
           command: |
             . dockerproject/bin/activate
             twine upload dist/*
+
+      
+  integration:
+    docker:
+      - image: circleci/python:3.6
+    steps:
+      - run: echo "It works!"
+      - run: echo $RUN_EXTRA_TESTS
+  deploy:
+    docker:
+      - image: circleci/python:3.6
+    steps:
+      - checkout
+      
+      - run:
+          name: install python dependencies
+          command: |
+           pip install --upgrade pip
+           python3 -m venv dockerproject
+           . dockerproject/bin/activate
+           pip3 install -r requirements.txt
+      - run:
+          name: verify git tag vs. version
+          command: |
+            python3 -m venv dockerproject
+            . dockerproject/bin/activate
+            python setup.py verify
+      
