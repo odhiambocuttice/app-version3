@@ -4,8 +4,11 @@ omit =
   *migrations/*,
   *settings*,
   *tests/*,
-  *urls.py,
+  
   *wsgi/*,
+  *wsgi.py,
+  *views.py,
   *views/*,
   *dockerproject/*,
+  *setup.py,
   manage.py
