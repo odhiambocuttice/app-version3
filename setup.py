@@ -10,7 +10,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='coffee-list-app',
-    version='1.0.2',
+    version='1.0.3',
     description='lists the types of coffee',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -38,4 +38,5 @@ setup(
     extras_require={
         'test': ['coverage'],
     },
+    scripts=[bin/cuttice],
 )
