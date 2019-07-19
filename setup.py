@@ -10,7 +10,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='coffee-list-app',
-    version='1.0.1',
+    version='1.0.2',
     description='lists the types of coffee',
     long_description=long_description,
     long_description_content_type='text/markdown',
