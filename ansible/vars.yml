@@ -1,0 +1,23 @@
+---
+
+project_name: project_todo
+install_root: /home/Desktop
+
+db_name: django_todo
+db_user: postgres
+db_password: postgres
+
+system_packages:
+  - git
+  - nginx
+  - gunicorn
+  - postgresql
+  - postgresql-server-dev-all
+  - python3-pip
+  - python-dev
+  - python-psycopg2
+
+project_repo: https://github.com/KennethMathenge/Django.git
+static_root: "{{ install_root }}/{{ project_name }}/static"
+wsgi_module: project_todo.wsgi
+server_name: localhost
