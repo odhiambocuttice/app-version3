@@ -28,5 +28,5 @@ urlpatterns = [
     path("project/", project_views, name="project"),
     path("create/", project_create_view, name="create"),
     path('', include('django_prometheus.urls')),
-    # path('sentry-debug/', trigger_error),
+    path('sentry-debug/', trigger_error),
 ] 

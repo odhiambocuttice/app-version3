@@ -10,7 +10,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='coffee-list-app',
-    version='1.0.3',
+    version='1.0.4',
     description='lists the types of coffee',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -34,7 +34,7 @@ setup(
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
     python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, <4',
     install_requires=['gunicorn', 'psycopg2',
-                      'django-prometheus', 'sentry-sd'],
+                      'django-prometheus'],
     extras_require={
         'test': ['coverage'],
     },
