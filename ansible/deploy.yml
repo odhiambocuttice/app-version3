@@ -15,43 +15,43 @@
        dest: home/cuttice
 
   
-    - name: Update and upgrade apt packages
-      apt:
-       upgrade: yes
-       update_cache: yes
-       cache_valid_time: 86400
+    # - name: Update and upgrade apt packages
+    #   apt:
+    #    upgrade: yes
+    #    update_cache: yes
+    #    cache_valid_time: 86400
 
 
-  #   - name: Install Python Packages
-  #     pip: requirements={{ install_root }}/{{ project_name }}/requirements.txt executable=pip3
-  #     notify:
-  #       - restart gunicorn
+    - name: Install Python Packages
+      pip: requirements={{ install_root }}/{{ project_name }}/requirements.txt executable=pip3
+      notify:
+        - restart gunicorn
 
-  #   - name: copy nginx config file
-  #     template: src=files/nginx.j2 dest=/etc/nginx/sites-enabled/{{ project_name }}.config
-  #     notify:
-  #       - restart nginx
+    - name: copy nginx config file
+      template: src=files/nginx.j2 dest=/etc/nginx/sites-enabled/{{ project_name }}.config
+      notify:
+        - restart nginx
 
-  #   - name: Django Migrate
-  #     django_manage: command=migrate app_path={{ install_root}}/{{ project_name }} 
+    - name: Django Migrate
+      django_manage: command=migrate app_path={{ install_root}}/{{ project_name }} 
 
-  #   - name: Django collectstatic
-  #     django_manage: command=collectstatic app_path={{ install_root}}/{{ project_name }} 
+    - name: Django collectstatic
+      django_manage: command=collectstatic app_path={{ install_root}}/{{ project_name }} 
     
-  #   - name: copy gunicorn config
-  #     template: src=files/gunicorn.j2 dest=/etc/init/gunicorn.conf
-  #     notify:
-  #     - restart gunicorn
+    - name: copy gunicorn config
+      template: src=files/gunicorn.j2 dest=/etc/init/gunicorn.conf
+      notify:
+      - restart gunicorn
 
-  #   - name: make sure nginx server is running
-  #     service: name=nginx state=started enabled=yes
+    - name: make sure nginx server is running
+      service: name=nginx state=started enabled=yes
 
-  #   - name: make sure gunicorn server is running
-  #     service: name=gunicorn state=started enabled=yes
+    - name: make sure gunicorn server is running
+      service: name=gunicorn state=started enabled=yes
 
-  # handlers: 
-  #   - name: restart nginx
-  #     service: name=nginx state=restarted
+  handlers: 
+    - name: restart nginx
+      service: name=nginx state=restarted
 
-  #   - name: restart gunicorn
-  #     service: name=gunicorn state=restarted
+    - name: restart gunicorn
+      service: name=gunicorn state=restarted
