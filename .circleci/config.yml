@@ -35,35 +35,35 @@ jobs:
           path: htmlcov/
  
       
-      # - run:
-      #     name: install python dependencies
-      #     command: |
-      #       pip install --upgrade pip
-      #       python3 -m venv dockerproject
-      #       . dockerproject/bin/activate
-      #       pip3 install -r requirements.txt
+      - run:
+          name: install python dependencies
+          command: |
+            pip install --upgrade pip
+            python3 -m venv dockerproject
+            . dockerproject/bin/activate
+            pip3 install -r requirements.txt
       
-      # - run:
-      #     name: run tests
-      #     command: |
-      #      . dockerproject/bin/activate
-      #      coverage run --source='.' manage.py test
-      #      coverage report
+      - run:
+          name: run tests
+          command: |
+           . dockerproject/bin/activate
+           coverage run --source='.' manage.py test
+           coverage report
      
       
   
-      # - run:
-      #     name: init .pypirc
-      #     command: |
-      #       echo -e "[pypi]" >> ~/.pypirc
-      #       echo -e "username = cuttice" >> ~/.pypirc
-      #       echo -e "password = $PYPI_PASSWORD" >> ~/.pypirc
-      # - run:
-      #     name: create packages
-      #     command: |
-      #       python setup.py sdist
-      # - run:
-      #     name: upload to pypi
-      #     command: |
-      #       . dockerproject/bin/activate
-      #       twine upload dist/*
+      - run:
+          name: init .pypirc
+          command: |
+            echo -e "[pypi]" >> ~/.pypirc
+            echo -e "username = cuttice" >> ~/.pypirc
+            echo -e "password = $PYPI_PASSWORD" >> ~/.pypirc
+      - run:
+          name: create packages
+          command: |
+            python setup.py sdist
+      - run:
+          name: upload to pypi
+          command: |
+            . dockerproject/bin/activate
+            twine upload dist/*

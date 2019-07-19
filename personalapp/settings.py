@@ -17,11 +17,11 @@ from sentry_sdk.integrations.django import DjangoIntegration
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+
 sentry_sdk.init(
-    dsn="https://a71f59a83dcc4a0bba98b47605523856@sentry.io/1501941",
+    dsn="https://e05ea546ec3e40dfabafbae0b2025d04@sentry.io/1508876",
     integrations=[DjangoIntegration()]
 )
-
 
 
 # Quick-start development settings - unsuitable for production
