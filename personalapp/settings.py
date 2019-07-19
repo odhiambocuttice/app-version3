@@ -22,7 +22,10 @@ sentry_sdk.init(
     dsn="https://e05ea546ec3e40dfabafbae0b2025d04@sentry.io/1508876",
     integrations=[DjangoIntegration()]
 )
-
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+TEMPLATE_DIRS = (
+        os.path.join(PROJECT_ROOT, "hello/templates/"),
+    )
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -70,7 +73,7 @@ ROOT_URLCONF = "personalapp.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, 'templates'),],
+        "DIRS": [os.path.join(BASE_DIR, 'hello/templates'),],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
