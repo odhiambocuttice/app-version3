@@ -38,5 +38,5 @@ setup(
     extras_require={
         'test': ['coverage'],
     },
-    scripts=[bin/cuttice],
+    scripts=['bin/cuttice'],
 )
