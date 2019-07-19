@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "hello",
     "django_prometheus",
-    "django_elasticsearch_dsl",
+    # "django_elasticsearch_dsl",
 
 ]
 
