@@ -6,5 +6,6 @@ omit =
   *tests/*,
   *urls.py,
   *wsgi/*,
-  *views/*
+  *views/*,
+  *dockerproject/*,
   manage.py
