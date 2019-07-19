@@ -4,7 +4,7 @@ omit =
   *migrations/*,
   *settings*,
   *tests/*,
-  
+  *urls.py,
   *wsgi/*,
   *wsgi.py,
   *views.py,
