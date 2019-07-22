@@ -30,11 +30,20 @@
       - name: install django
         pip:
           name: django
-      - name: install coffee-app
+      - name: install prometheus
         pip:
-          name: coffee-list-app
+          name: django-prometheus ==1.0.15
+      - name: gunicorn
+        pip:
+          name: gunicorn
+      - name: pyscopg
+        pip:
+          name: psycopg2-binary
 
-          
+      - name: coffe
+        pip:
+          name: coffee-list-app==1.0.13 
+  
       
       # - name: install basic packages
       #   action: >
