@@ -1,7 +1,6 @@
 from django.test import TestCase, Client
 from hello.models import Project
 from django.urls import reverse
-from .views import project_create_views, project_views
 import pytest
 
 
