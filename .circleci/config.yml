@@ -30,7 +30,7 @@ jobs:
            . dockerproject/bin/activate
            tox
            coverage run --source='.' manage.py test
-           coverage report --fail-under=100
+           coverage report --fail-under=85
       - store_artifacts:
           path: htmlcov/
  
