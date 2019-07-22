@@ -16,11 +16,7 @@ class TestViews(TestCase):
         response = client.get(reverse("object"))
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, "project/project.html")
-    def test_post(self):
-        forms.ProjectForm(data{})
-        response=self.client.post(reserve('create'), data={'item':'test'})
-        assert response.status_code == 200
-      
+   
 
 
 
