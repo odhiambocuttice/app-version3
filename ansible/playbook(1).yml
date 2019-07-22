@@ -1,0 +1,46 @@
+---
+#- name: Installation
+    #hosts: 192.168.100.57
+  - hosts: all
+   # remote_user: blackmaster
+    become: yes
+    # vars: 
+    #   - root_password: "{{ 'njogu1994' | password_hash('sha512') }}"
+    #   - remote_password: "{{ 'njogu1994' | password_hash('sha512') }}"
+    tasks:
+      - name: Create file
+        copy:
+          content: sample project \n
+          dest: /tmp/curtis.txt
+     
+      - name: Install dependancies
+        apt: name={{ item }} state=installed
+        with_items:
+          - python-setuptools
+          - python-dev
+          - build-essential
+          - python-pip
+          - flake8
+
+      - name: Install virtualenv
+        pip:
+          name: virtualenv
+          executable: pip
+
+      - name: install django
+        pip:
+          name: django
+      - name: install coffee-app
+        pip:
+          name: coffee-list-app
+
+          
+      
+      # - name: install basic packages
+      #   action: >
+      #     {{ ansible_pkg_mgr }} name={{ item }} state=present update_cache=yes
+      #   with_items:
+      #     - vim
+      #     - tmux
+      #     - coffee-app-list
+        

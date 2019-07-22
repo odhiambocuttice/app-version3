@@ -5,6 +5,7 @@ from hello import admin
 from hello import models
 pytestmark = pytest.mark.django_db
 
+
 class TestProjectAdmin:
-	def test_expect(self):
-		site
+    def test_expect(self):
+        site = AdminSite()
