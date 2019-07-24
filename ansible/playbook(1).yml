@@ -1,12 +1,9 @@
 ---
-#- name: Installation
-    #hosts: 192.168.100.57
+
   - hosts: all
-   # remote_user: blackmaster
+  
     become: yes
-    # vars: 
-    #   - root_password: "{{ 'njogu1994' | password_hash('sha512') }}"
-    #   - remote_password: "{{ 'njogu1994' | password_hash('sha512') }}"
+   
     tasks:
       - name: Create file
         copy:
@@ -40,9 +37,9 @@
         pip:
           name: psycopg2-binary
 
-      - name: coffe
+      - name: coffee-app-list
         pip:
-          name: coffee-list-app==1.0.13 
+          name: coffee-list-app
   
       
       # - name: install basic packages
