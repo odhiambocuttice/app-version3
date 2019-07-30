@@ -7,16 +7,17 @@
     tasks:
       - name: Create file
         copy:
-          content: sample project \n
-          dest: /tmp/curtis.txt
+          src: /home/cuttice/add.py
+
+          dest: /dockerproject
      
       - name: Install dependancies
         apt: name={{ item }} state=installed
         with_items:
-          - python-setuptools
-          - python-dev
+          - python3-setuptools
+          - python3-dev
           - build-essential
-          - python-pip
+          - python3-pip
           - flake8
 
       - name: Install virtualenv
@@ -39,7 +40,7 @@
 
       - name: coffee-app-list
         pip:
-          name: coffee-list-app
+          name: coffee-list-app==1.0.15
   
       
       # - name: install basic packages
