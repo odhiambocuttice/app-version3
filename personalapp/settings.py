@@ -36,7 +36,7 @@ SECRET_KEY = "0(e+a&2(*cev21dqnbl=#!!*1d^$$6%g*^2^x83n1d&bxoll3w"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1", "192.168.100.37"]
+ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1", "192.168.100.37", "odhiambo.tk"]
 
 
 

@@ -23,12 +23,20 @@
           - htop
           - git
           - supervisor
-        
+          - gunicorn
           - python3-pip
           - nginx
         tags:
          - packages
-    
+      - name: Upgrade pip
+        pip: name=pip state=latest
+        tags:
+         - packages
+
+
+      
+      # - name: installed
+      #   shell: pip install -r requirements.txt
       
       - name: Pull project from github
         git:
@@ -64,4 +72,5 @@
         become: yes
       - name: gunicorn
         become: True
-        command: gunicorn --daemon --workers 3 --bind unix:/home/ubuntu/home/ubuntu/personalapp.sock personalapp.wsgi;
+        command: gunicorn --daemon --workers 3 --bind unix:/home/ubuntu/cuttice/personalapp.sock personalapp.wsgi;
+      
