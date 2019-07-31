@@ -6,7 +6,8 @@ services:
             context: .
         volumes:
             - .:/code
-        command: python manage.py runserver 0.0.0.0:8000
+        command: gunicorn --daemon --workers 3 --bind unix:/home/cuttice/dockerproject/docker/app-version3/personalapp.sock personalapp.wsgi
+
 
 
         ports:

@@ -1,0 +1,155 @@
+---     #Preferable syntax to start .yml file
+- name: Installation          # Name of the task to be performed in the destinaton host
+  hosts: all
+  #host = All -- Incase you have many servers in your ssh.cfg file
+  #hosts: localhost
+  become: True        #Makes you an user for the remote host
+  tasks:        # Tasks to be performed
+    # - name: Create file
+    #   copy:     # Ansible module
+    #     src: /home/kathurima/Music
+    #   #If you wanted to copy from a particular source, you would have used 'src:' instead of 'content'
+    #     #content: Create \n      # What is to be written in the test.txt
+    #     #dest: /home/kathurima/Music/tmp
+    #     dest: /home/kathurima/Music/tmp
+    - name: add universe repository for bionic
+      apt_repository: 
+        repo: deb http://archive.ubuntu.com/ubuntu bionic universe
+        state: present
+      when: ansible_distribution_release == 'bionic'
+
+#------------------------------------------------------------------------------------------------------#
+#                                   BASIC SETUP AND INSTALLATION
+#------------------------------------------------------------------------------------------------------#
+    - name: Install a list of packages
+      apt:
+        name: "{{ packages }}"
+      vars:
+        packages:
+        - htop
+        - python-pip
+        - build-essential
+        - python-setuptools
+        - fabric
+        - nginx
+        state: forcereinstall
+
+    - name: Install pip packages
+      pip:
+        name: "{{ packages }}"
+      vars: 
+        packages:
+        - model_mommy
+        - ansible
+        - coverage
+        - sentry-sdk==0.10.1
+        - certifi==2019.6.16
+        - django-prometheus==1.0.15
+        - gunicorn==19.9.0
+        - prometheus-client==0.7.1
+        - pytz==2019.1
+        - sqlparse==0.3.0
+        - urllib3==1.25.3
+        - Django==2.2.2
+        - twine
+
+    - name: Upgrade pip
+      pip: name=pip state=latest
+      tags:
+        - packages
+
+    - name: Create directory myname
+      file:
+        state: directory
+        path: kathurima
+    
+    - name: Pull project from github
+      git:
+        repo: 'https://github.com/KathurimaKimathi/testdjangopackage.git'
+        dest: kathurima/
+          
+    - name: install virtualenv
+      pip: 
+        name: 
+          - virtualenv
+    
+    - name: create virtualenv
+      #command: /usr/local/bin/virtualenv kathurima/env
+      command: |
+        cd /home/ubuntu/kathurima
+        python3 -m virtualenv testpkgenv
+    
+    - name: Activating virtual environment
+      command: |
+        cd /home/ubuntu/kathurima
+        source testpkgenv/bin/activate
+
+
+    - name: installing requirements.txt modules
+      pip:
+        # requirements: 
+        #   - /home/ubuntu/kathurima/testdjangopackage/rp-portfolio/requirements.txt
+        virtualenv: 
+          - cd /home/ubuntu/kathurima
+          - source testpkgenv.bin/activate
+          - pip install -r /home/ubuntu/kathurima/testdjangopackage/rp-portfolio/requirements.txt
+        virtualenv_python: 
+          - python3.6
+
+    - name: activate virtual environment and making migrations
+      command: |
+        - cd /home/ubuntu/kathurima
+        - source testpkgenv.bin/activate
+        - python3 /home/ubuntu/kathurima/testdjangopackage/rp-portfolio/manage.py migrate
+
+    - name: grant user ownership to rp-portfolio folder
+      command: |
+        - sudo chown ubuntu:www-data /home/ubuntu/kathurima/testdjangopackage/rp-portfolio
+
+#------------------------------------------------------------------------------------------------------#
+#                                   NGINX
+#------------------------------------------------------------------------------------------------------#
+    - name: ensure nginx is at the latest version
+      apt: 
+        name: 
+          - nginx 
+        state: 
+          - latest
+      become: yes
+
+    - name: starting nginx
+      service:
+          name: 
+            - nginx
+          state: 
+            - started
+      become: yes
+      
+    - name: copy the nginx config file and restart nginx
+      copy:
+        src: /etc/nginx/sites-available
+        dest: /etc/nginx/sites-available
+      become: yes
+
+    - name: create symlink
+      file:
+        src: /etc/nginx/sites-available/rp-portfolio
+        dest: /etc/nginx/sites-enabled/default
+        state: link
+      become: yes
+    
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
+      become: yes
+
+#------------------------------------------------------------------------------------------------------#
+#                                   GUNICORN
+#------------------------------------------------------------------------------------------------------#
+    - name: start gunicorn
+      command: |
+        cd /home/ubuntu/kathurima
+        source testpkgenv/bin/activate
+        gunicorn --daemon --workers 3 --bind unix:/home/ubuntu/kathurima/testdjangopackage/rp-portfolio/personal_portfolio.sock personal_portfolio.wsgi
+

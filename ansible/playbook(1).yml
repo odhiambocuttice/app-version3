@@ -17,37 +17,51 @@
           - python3-setuptools
           - python3-dev
           - build-essential
-          - python3-pip
+          - python3-apt
           - flake8
-
-      - name: Install virtualenv
-        pip:
-          name: virtualenv
-          executable: pip
-
-      - name: install django
-        pip:
-          name: django
-      - name: install prometheus
-        pip:
-          name: django-prometheus ==1.0.15
-      - name: gunicorn
-        pip:
-          name: gunicorn
-      - name: pyscopg
-        pip:
-          name: psycopg2-binary
-
-      - name: coffee-app-list
-        pip:
-          name: coffee-list-app==1.0.15
-  
-      
-      # - name: install basic packages
-      #   action: >
-      #     {{ ansible_pkg_mgr }} name={{ item }} state=present update_cache=yes
-      #   with_items:
-      #     - vim
-      #     - tmux
-      #     - coffee-app-list
+          - locales
+          - htop
+          - git
+          - supervisor
         
+          - python3-pip
+          - nginx
+        tags:
+         - packages
+    
+      
+      - name: Pull project from github
+        git:
+          repo: 'https://github.com/odhiambocuttice/app-version3.git'
+          dest: cuttice
+      
+     
+
+      - name: ensure nginx is at the latest version
+        apt: name=nginx state=latest
+        become: yes
+      - name: start nginx
+        service:
+            name: nginx
+            state: started
+        become: yes
+      - name: configure nginx file
+        copy:
+          src: /etc/nginx/sites-available/personalapp
+          dest: /etc/nginx/sites-available
+        become: yes
+      - name: link
+        file:
+          src: /etc/nginx/sites-available/personalapp
+          dest: /etc/nginx/sites-enabled/default
+          state: link
+        become: yes
+      
+      - name: restart nginx
+        service:
+          name: nginx
+          state: restarted
+        become: yes
+      - name: gunicorn
+        become: True
+        command: gunicorn --daemon --workers 3 --bind unix:/home/ubuntu/home/ubuntu/personalapp.sock personalapp.wsgi;
