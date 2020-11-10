@@ -1,0 +1,76 @@
+---
+
+  - hosts: all
+  
+    become: yes
+   
+    tasks:
+      - name: Create file
+        copy:
+          src: /home/cuttice/add.py
+
+          dest: /dockerproject
+     
+      - name: Install dependancies
+        apt: name={{ item }} state=installed
+        with_items:
+          - python3-setuptools
+          - python3-dev
+          - build-essential
+          - python3-apt
+          - flake8
+          - locales
+          - htop
+          - git
+          - supervisor
+          - gunicorn
+          - python3-pip
+          - nginx
+        tags:
+         - packages
+      - name: Upgrade pip
+        pip: name=pip state=latest
+        tags:
+         - packages
+
+
+      
+      # - name: installed
+      #   shell: pip install -r requirements.txt
+      
+      - name: Pull project from github
+        git:
+          repo: 'https://github.com/odhiambocuttice/app-version3.git'
+          dest: cuttice
+      
+     
+
+      - name: ensure nginx is at the latest version
+        apt: name=nginx state=latest
+        become: yes
+      - name: start nginx
+        service:
+            name: nginx
+            state: started
+        become: yes
+      - name: configure nginx file
+        copy:
+          src: /etc/nginx/sites-available/personalapp
+          dest: /etc/nginx/sites-available
+        become: yes
+      - name: link
+        file:
+          src: /etc/nginx/sites-available/personalapp
+          dest: /etc/nginx/sites-enabled/default
+          state: link
+        become: yes
+      
+      - name: restart nginx
+        service:
+          name: nginx
+          state: restarted
+        become: yes
+      - name: gunicorn
+        become: True
+        command: gunicorn --daemon --workers 3 --bind unix:/home/ubuntu/cuttice/personalapp.sock personalapp.wsgi;
+      

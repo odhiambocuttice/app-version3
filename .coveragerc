@@ -1,0 +1,14 @@
+[run]
+omit =
+  *apps.py,
+  *migrations/*,
+  *settings*,
+  *personalapp/*,
+  
+  *wsgi/*,
+  *wsgi.py,
+  *views.py,
+  *views/*,
+  *dockerproject/*,
+  *setup.py,
+  manage.py

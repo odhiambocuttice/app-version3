@@ -17,12 +17,15 @@ from sentry_sdk.integrations.django import DjangoIntegration
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+
 sentry_sdk.init(
-    dsn="https://a71f59a83dcc4a0bba98b47605523856@sentry.io/1501941",
+    dsn="https://e05ea546ec3e40dfabafbae0b2025d04@sentry.io/1508876",
     integrations=[DjangoIntegration()]
 )
-
-
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+TEMPLATE_DIRS = (
+        os.path.join(PROJECT_ROOT, "hello/templates/"),
+    )
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -33,7 +36,7 @@ SECRET_KEY = "0(e+a&2(*cev21dqnbl=#!!*1d^$$6%g*^2^x83n1d&bxoll3w"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1", "192.168.100.37", "odhiambo.tk"]
 
 
 
@@ -49,7 +52,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "hello",
     "django_prometheus",
-    "django_elasticsearch_dsl",
+    # "django_elasticsearch_dsl",
 
 ]
 
@@ -70,7 +73,7 @@ ROOT_URLCONF = "personalapp.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, 'hello/templates'),],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -103,7 +106,7 @@ DATABASES = {
 #         "NAME": "hello",
 #         "USER": "personalapp",
 #         "PASSWORD": "hello",
-#         # "HOST": "db",
+#         "HOST": "db",
 #         "PORT": "5432",
 #     }
 # }

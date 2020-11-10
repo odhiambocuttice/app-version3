@@ -12,4 +12,4 @@ class TestForms(SimpleTestCase):
     def test_project_form_no_data(self):
         form = ProjectForm(data={})
         self.assertFalse(form.is_valid())
-        self.assertEquals(len(form.errors), 3)
+        self.assertEqual(len(form.errors), 3)
